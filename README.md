@@ -60,17 +60,26 @@ ruudk_payment_multisafepay:
         - direct_debit
 ```
 
-Make sure you set the client_ip in the predefined_data like this:
+Make sure you set the `return_url`, `cancel_url` and `client_ip` in the `predefined_data` for every payment method you enable:
 ````php
     $form = $this->getFormFactory()->create('jms_choose_payment_method', null, array(
         'amount'   => $order->getAmount(),
         'currency' => 'EUR',
         'predefined_data' => array(
             'multisafepay_ideal' => array(
-                'client_ip' => $request->getClientIp()
-            )
+                'return_url' => $this->generateUrl('order_complete', array(), true),
+                'cancel_url' => $this->generateUrl('payment_cancelled', array(), true),
+                'client_ip' => $request->getClientIp(),
+            ),
+            'multisafepay_mister_cash' => array(
+                'return_url' => $this->generateUrl('order_complete', array(), true),
+                'cancel_url' => $this->generateUrl('payment_cancelled', array(), true),
+                'client_ip' => $request->getClientIp(),
+            ),
+            // etc...
         ),
     ));
 ````
+It's also possible to set a `description` for the transaction in the `predefined_data`.
 
 See [JMSPaymentCoreBundle documentation](http://jmsyst.com/bundles/JMSPaymentCoreBundle/master/usage) for more info.
