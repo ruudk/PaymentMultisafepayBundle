@@ -28,12 +28,9 @@
         <service id="ruudk_payment_multisafepay.controller.notification" class="%ruudk_payment_multisafepay.controller.notification.class%">
             <argument type="service" id="payment.plugin_controller" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <!--
-            Useful for debug purposes
             <call method="setLogger">
-                <argument type="service" id="monolog.logger.ruudk_payment_multisafepay" on-invalid="null" strict="false" />
+                <argument type="service" id="monolog.logger.ruudk_payment_multisafepay" />
             </call>
-            -->
         </service>
 
         <service id="ruudk_payment_multisafepay.gateway" class="%ruudk_payment_multisafepay.gateway.class%">
@@ -54,12 +51,9 @@
         <service id="ruudk_payment_multisafepay.plugin.default" class="%ruudk_payment_multisafepay.plugin.default.class%">
             <argument type="service" id="ruudk_payment_multisafepay.gateway" />
             <argument>%ruudk_payment_multisafepay.report_url%</argument>
-            <!--
-            Useful for debug purposes
             <call method="setLogger">
-                <argument type="service" id="monolog.logger.ruudk_payment_multisafepay" on-invalid="null" strict="false" />
+                <argument type="service" id="monolog.logger.ruudk_payment_multisafepay" />
             </call>
-            -->
             <tag name="payment.plugin" />
         </service>
 
@@ -67,7 +61,7 @@
             <argument type="service" id="ruudk_payment_multisafepay.gateway" />
             <argument>%ruudk_payment_multisafepay.report_url%</argument>
             <call method="setLogger">
-                <argument type="service" id="monolog.logger.ruudk_payment_multisafepay" on-invalid="null" strict="false" />
+                <argument type="service" id="monolog.logger.ruudk_payment_multisafepay" />
             </call>
             <tag name="payment.plugin" />
         </service>

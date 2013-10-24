@@ -45,8 +45,9 @@ ruudk_payment_multisafepay:
     account_id:     Your account id
     site_id:        Your site id
     site_code:      Your secure site code
-    test:           true/false
+    test:           true/false   # Default true
     report_url:     http://host/webhook/multisafepay
+    logger:         true/false   # Default true
     methods:
         - ideal
         - mister_cash

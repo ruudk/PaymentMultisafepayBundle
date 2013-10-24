@@ -38,6 +38,16 @@ class RuudkPaymentMultisafepayExtension extends Extension
         if(!in_array('ideal', $config['methods'])) {
             $container->removeDefinition('ruudk_payment_multisafepay.cache_warmer');
         }
+
+        /**
+         * When logging is disabled, remove logger and setLogger calls
+         */
+        if(false === $config['logger']) {
+            $container->getDefinition('ruudk_payment_multisafepay.controller.notification')->removeMethodCall('setLogger');
+            $container->getDefinition('ruudk_payment_multisafepay.plugin.default')->removeMethodCall('setLogger');
+            $container->getDefinition('ruudk_payment_multisafepay.plugin.ideal')->removeMethodCall('setLogger');
+            $container->removeDefinition('monolog.logger.ruudk_payment_multisafepay');
+        }
     }
 
     protected function addFormType(ContainerBuilder $container, $method)

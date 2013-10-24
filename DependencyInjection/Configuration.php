@@ -42,6 +42,9 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
+                ->booleanNode('logger')
+                    ->defaultTrue()
+                ->end()
             ->end()
 
             ->fixXmlConfig('method')
