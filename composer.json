@@ -1,7 +1,7 @@
 {
     "name": "ruudk/payment-multisafepay-bundle",
     "type": "symfony-bundle",
-    "description": "Payment Bundle providing access to the MultiSafepay API. Based on JMSPaymentCoreBundle.",
+    "description": "A Symfony2 Bundle that provides access to the MultiSafepay API. Based on JMSPaymentCoreBundle.",
     "keywords": ["payment", "multisafepay"],
     "homepage": "https://github.com/ruudk/PaymentMultisafepayBundle",
     "license": "Apache2",
