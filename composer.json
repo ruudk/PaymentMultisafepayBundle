@@ -1,0 +1,24 @@
+{
+    "name": "ruudk/payment-multisafepay-bundle",
+    "type": "symfony-bundle",
+    "description": "Payment Bundle providing access to the MultiSafepay API. Based on JMSPaymentCoreBundle.",
+    "keywords": ["payment", "multisafepay"],
+    "homepage": "https://github.com/ruudk/PaymentMultisafepayBundle",
+    "license": "Apache2",
+    "authors": [
+        {
+            "name": "Ruud Kamphuis",
+            "email": "ruudk@mphuis.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "~2.0",
+        "jms/payment-core-bundle": "~1.0",
+        "omnipay/omnipay": "~1.1"
+    },
+    "autoload": {
+        "psr-0": { "Ruudk\\Payment\\MultisafepayBundle": "" }
+    },
+    "target-dir": "Ruudk/Payment/MultisafepayBundle"
+}

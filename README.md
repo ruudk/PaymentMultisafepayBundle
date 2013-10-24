@@ -32,7 +32,7 @@ public function registerBundles()
 ### Step3: Configure
 
 Add the following to your routing.yml:
-``` yaml
+```yaml
 ruudk_payment_multisafepay_notifications:
     pattern:  /webhook/multisafepay
     defaults: { _controller: ruudk_payment_multisafepay.controller.notification:processNotification }
@@ -40,7 +40,7 @@ ruudk_payment_multisafepay_notifications:
 ```
 
 Add the following to your config.yml:
-``` yaml
+```yaml
 ruudk_payment_multisafepay:
     account_id:     Your account id
     site_id:        Your site id
@@ -59,6 +59,17 @@ ruudk_payment_multisafepay:
         - direct_debit
 ```
 
-Congratulations! You're ready. 
+Make sure you set the client_ip in the predefined_data like this:
+````php
+    $form = $this->getFormFactory()->create('jms_choose_payment_method', null, array(
+        'amount'   => $order->getAmount(),
+        'currency' => 'EUR',
+        'predefined_data' => array(
+            'multisafepay_ideal' => array(
+                'client_ip' => $request->getClientIp()
+            )
+        ),
+    ));
+````
 
 See [JMSPaymentCoreBundle documentation](http://jmsyst.com/bundles/JMSPaymentCoreBundle/master/usage) for more info.
