@@ -34,6 +34,8 @@
         </service>
 
         <service id="ruudk_payment_multisafepay.gateway" class="%ruudk_payment_multisafepay.gateway.class%">
+            <argument>null</argument>
+            <argument type="service" id="request" on-invalid="null" strict="false" />
             <call method="setAccountId">
                 <argument>%ruudk_payment_multisafepay.account_id%</argument>
             </call>
