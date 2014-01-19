@@ -9,13 +9,13 @@ use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
 use JMS\Payment\CoreBundle\Plugin\Exception\BlockedException;
 use JMS\Payment\CoreBundle\Plugin\Exception\FinancialException;
 use JMS\Payment\CoreBundle\Plugin\PluginInterface;
-use Monolog\Logger;
 use Omnipay\MultiSafepay\Gateway;
+use Psr\Log\LoggerInterface;
 
 class DefaultPlugin extends AbstractPlugin
 {
     /**
-     * @var \Monolog\Logger
+     * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
@@ -36,9 +36,9 @@ class DefaultPlugin extends AbstractPlugin
     }
 
     /**
-     * @param Logger $logger
+     * @param LoggerInterface $logger
      */
-    public function setLogger(Logger $logger = null)
+    public function setLogger(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
     }
