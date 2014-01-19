@@ -2,15 +2,11 @@
 
 namespace Ruudk\Payment\MultisafepayBundle\Plugin;
 
-use JMS\Payment\CoreBundle\Entity\PaymentInstruction;
 use JMS\Payment\CoreBundle\Plugin\AbstractPlugin;
 use JMS\Payment\CoreBundle\Model\FinancialTransactionInterface;
-use JMS\Payment\CoreBundle\Model\PaymentInstructionInterface;
 use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
 use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
-use JMS\Payment\CoreBundle\Plugin\ErrorBuilder;
 use JMS\Payment\CoreBundle\Plugin\Exception\BlockedException;
-use JMS\Payment\CoreBundle\Plugin\Exception\CommunicationException;
 use JMS\Payment\CoreBundle\Plugin\Exception\FinancialException;
 use JMS\Payment\CoreBundle\Plugin\PluginInterface;
 use Monolog\Logger;
