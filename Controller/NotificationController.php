@@ -57,7 +57,7 @@ class NotificationController
         }
 
         if(!$request->query->has('transactionid')) {
-            return new Response('Failed: No transactionid', 500);
+            return new Response('Failed: No transactionid');
         }
 
         try
@@ -101,6 +101,8 @@ class NotificationController
                     }
                 }
             }
+            
+            return new Response('OK', 201);
         }
         catch(\Exception $e)
         {
@@ -110,7 +112,5 @@ class NotificationController
 
             return new Response('[failed]', 500);
         }
-
-        return new Response('OK');
     }
 }
