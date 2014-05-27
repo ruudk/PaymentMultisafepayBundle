@@ -160,11 +160,33 @@ class DefaultPlugin extends AbstractPlugin
          * @var \Omnipay\MultiSafepay\Message\PurchaseRequest $purchaseRequest
          */
         $purchaseRequest = $this->gateway->purchase($parameters);
+
+        /**
+         * @var \Omnipay\MultiSafepay\Message\PurchaseResponse $purchaseResponse
+         */
         $purchaseResponse = $purchaseRequest->send();
 
         if($this->logger) {
             $this->logger->info($purchaseRequest->getData()->asXML());
             $this->logger->info($purchaseResponse->getData()->asXML());
+        }
+
+        if(empty($purchaseResponse->getRedirectUrl())) {
+            $ex = new FinancialException('Payment failed.');
+            $ex->setFinancialTransaction($transaction);
+            $transaction->setResponseCode('FAILED');
+            $transaction->setReasonCode('FAILED');
+            $transaction->setState(FinancialTransactionInterface::STATE_FAILED);
+
+            if($this->logger) {
+                $this->logger->info(sprintf(
+                    'Payment failed for transaction "%s" with reason: ',
+                    $transaction->getTrackingId(),
+                    $purchaseResponse->getMessage()
+                ));
+            }
+
+            throw $ex;
         }
 
         $actionRequest = new ActionRequiredException('Redirect the user to MultiSafepay.');
