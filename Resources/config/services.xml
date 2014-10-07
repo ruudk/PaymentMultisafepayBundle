@@ -22,6 +22,7 @@
     <services>
         <service id="ruudk_payment_multisafepay.cache_warmer" class="%ruudk_payment_multisafepay.cache_warmer.class%">
             <argument type="service" id="ruudk_payment_multisafepay.gateway" />
+            <argument>%kernel.environment%</argument>
             <tag name="kernel.cache_warmer" />
         </service>
 

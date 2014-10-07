@@ -13,11 +13,18 @@ class IdealCacheWarmer extends CacheWarmer
     private $gateway;
 
     /**
-     * @param Gateway $gateway
+     * @var string
      */
-    public function __construct(Gateway $gateway)
+    private $environment;
+
+    /**
+     * @param Gateway $gateway
+     * @param string  $environment
+     */
+    public function __construct(Gateway $gateway, $environment)
     {
         $this->gateway = $gateway;
+        $this->environment = $environment;
     }
 
     /**
@@ -28,7 +35,11 @@ class IdealCacheWarmer extends CacheWarmer
     public function warmUp($cacheDir)
     {
         try {
-            $banks = $this->gateway->fetchIssuers()->send()->getIssuers();
+            if('test' !== $this->environment) {
+                $banks = $this->gateway->fetchIssuers()->send()->getIssuers();
+            } else {
+                $banks = array(3151 => 'Test bank');
+            }
 
             $this->writeCacheFile($cacheDir . '/ruudk_payment_multisafepay_ideal.php', sprintf('<?php return %s;', var_export($banks, true)));
         } catch(\Exception $exception) {
