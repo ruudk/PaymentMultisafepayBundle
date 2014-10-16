@@ -16,13 +16,13 @@
         <parameter key="ruudk_payment_multisafepay.site_id" />
         <parameter key="ruudk_payment_multisafepay.site_code" />
         <parameter key="ruudk_payment_multisafepay.test" />
+        <parameter key="ruudk_payment_multisafepay.ideal_cache_warmer" />
         <parameter key="ruudk_payment_multisafepay.report_url" />
     </parameters>
 
     <services>
         <service id="ruudk_payment_multisafepay.cache_warmer" class="%ruudk_payment_multisafepay.cache_warmer.class%">
             <argument type="service" id="ruudk_payment_multisafepay.gateway" />
-            <argument>%kernel.environment%</argument>
             <tag name="kernel.cache_warmer" />
         </service>
 

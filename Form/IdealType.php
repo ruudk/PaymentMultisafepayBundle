@@ -9,13 +9,15 @@ class IdealType extends DefaultType
     /**
      * @var array
      */
-    protected $banks = array();
+    protected $banks = array(
+        3151 => 'Test bank'
+    );
 
     /**
      * @param string $name
      * @param string $cacheDir
      */
-    public function __construct($name, $cacheDir)
+    public function __construct($name, $cacheDir = null)
     {
         $this->name = $name;
 
