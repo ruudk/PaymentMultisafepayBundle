@@ -5,7 +5,6 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ruudk_payment_multisafepay.cache_warmer.class">Ruudk\Payment\MultisafepayBundle\CacheWarmer\IdealCacheWarmer</parameter>
         <parameter key="ruudk_payment_multisafepay.controller.notification.class">Ruudk\Payment\MultisafepayBundle\Controller\NotificationController</parameter>
         <parameter key="ruudk_payment_multisafepay.gateway.class">Omnipay\MultiSafepay\Gateway</parameter>
         <parameter key="ruudk_payment_multisafepay.form.default_type.class">Ruudk\Payment\MultisafepayBundle\Form\DefaultType</parameter>
@@ -16,16 +15,24 @@
         <parameter key="ruudk_payment_multisafepay.site_id" />
         <parameter key="ruudk_payment_multisafepay.site_code" />
         <parameter key="ruudk_payment_multisafepay.test" />
-        <parameter key="ruudk_payment_multisafepay.ideal_cache_warmer" />
         <parameter key="ruudk_payment_multisafepay.report_url" />
+        <parameter type="collection" key="ruudk_payment_multisafepay.ideal.issuers.test">
+            <parameter key="3151">Test bank</parameter>
+        </parameter>
+        <parameter type="collection" key="ruudk_payment_multisafepay.ideal.issuers.live">
+            <parameter key="0031">ABN AMRO</parameter>
+            <parameter key="0751">SNS Bank</parameter>
+            <parameter key="0721">ING</parameter>
+            <parameter key="0021">Rabobank</parameter>
+            <parameter key="0761">ASN Bank</parameter>
+            <parameter key="0771">Regio Bank</parameter>
+            <parameter key="0511">Triodos Bank</parameter>
+            <parameter key="0161">Van Lanschot Bankiers</parameter>
+            <parameter key="0801">Knab</parameter>
+        </parameter>
     </parameters>
 
     <services>
-        <service id="ruudk_payment_multisafepay.cache_warmer" class="%ruudk_payment_multisafepay.cache_warmer.class%">
-            <argument type="service" id="ruudk_payment_multisafepay.gateway" />
-            <tag name="kernel.cache_warmer" />
-        </service>
-
         <service id="ruudk_payment_multisafepay.controller.notification" class="%ruudk_payment_multisafepay.controller.notification.class%">
             <argument type="service" id="payment.plugin_controller" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />

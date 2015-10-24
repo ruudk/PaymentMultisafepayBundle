@@ -2,36 +2,73 @@
 
 namespace Ruudk\Payment\MultisafepayBundle\Form;
 
+use Omnipay\Common\Issuer;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IdealType extends DefaultType
 {
     /**
-     * @var array
+     * @var Issuer[]
      */
-    protected $banks = array(
-        3151 => 'Test bank'
-    );
+    protected $issuers = array();
 
     /**
      * @param string $name
-     * @param string $cacheDir
+     * @param array  $issuers
      */
-    public function __construct($name, $cacheDir = null)
+    public function __construct($name, array $issuers)
     {
+        parent::__construct($name);
+
         $this->name = $name;
 
-        if (null !== $cacheDir && is_file($cache = $cacheDir . '/ruudk_payment_multisafepay_ideal.php')) {
-            $this->banks = require $cache;
+        foreach ($issuers as $issuerId => $issuerName) {
+            $this->issuers[] = new Issuer($issuerId, $issuerName, 'ideal');
         }
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $banks = array();
+        $defaultBank = null;
+
+        foreach($this->issuers AS $issuer) {
+            if('ideal' !== $issuer->getPaymentMethod()) {
+                continue;
+            }
+
+            $banks[$issuer->getId()] = $issuer->getName();
+            $defaultBank = $issuer->getId();
+        }
+
+        if(1 !== count($banks)) {
+            $defaultBank = null;
+        }
+
+        if (!empty($options['bank'])) {
+            $defaultBank = $options['bank'];
+        }
+
         $builder->add('bank', 'choice', array(
             'label'       => 'ruudk_payment_multisafepay.ideal.bank.label',
+            'data'        => $defaultBank,
             'empty_value' => 'ruudk_payment_multisafepay.ideal.bank.empty_value',
-            'choices'     => $this->banks
+            'choices'     => $banks
         ));
+    }
+
+    /**
+     * Configures the options for this type.
+     *
+     * @param OptionsResolver $resolver The resolver for the options.
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'bank' => ''
+        ));
+
+        $resolver->setAllowedTypes('bank', 'string');
     }
 }
