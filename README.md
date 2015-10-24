@@ -46,7 +46,6 @@ ruudk_payment_multisafepay:
     site_id:            Your site id
     site_code:          Your secure site code
     test:               true/false   # Default true
-    ideal_cache_warmer: true/false   # Default true
     report_url:         http://host/webhook/multisafepay
     logger:             true/false   # Default true
     methods:
