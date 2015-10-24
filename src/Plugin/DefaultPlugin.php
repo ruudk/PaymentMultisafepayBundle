@@ -171,7 +171,8 @@ class DefaultPlugin extends AbstractPlugin
             $this->logger->info($purchaseResponse->getData()->asXML());
         }
 
-        if(empty($purchaseResponse->getRedirectUrl())) {
+        $url = $purchaseResponse->getRedirectUrl();
+        if(empty($url)) {
             $ex = new FinancialException('Payment failed.');
             $ex->setFinancialTransaction($transaction);
             $transaction->setResponseCode('FAILED');
