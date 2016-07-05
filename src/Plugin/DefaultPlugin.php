@@ -11,6 +11,7 @@ use JMS\Payment\CoreBundle\Plugin\Exception\FinancialException;
 use JMS\Payment\CoreBundle\Plugin\PluginInterface;
 use Omnipay\MultiSafepay\Gateway;
 use Psr\Log\LoggerInterface;
+use Ruudk\Payment\MultisafepayBundle\Form\IdealType;
 
 class DefaultPlugin extends AbstractPlugin
 {
@@ -45,7 +46,7 @@ class DefaultPlugin extends AbstractPlugin
 
     public function processes($name)
     {
-        return $name !== 'multisafepay_ideal' && preg_match('/^multisafepay_/', $name);
+        return $name !== IdealType::class && preg_match('/Multisafepay/', $name);
     }
 
     public function approveAndDeposit(FinancialTransactionInterface $transaction, $retry)
