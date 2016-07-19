@@ -5,13 +5,12 @@ namespace Ruudk\Payment\MultisafepayBundle\Plugin;
 use JMS\Payment\CoreBundle\Model\FinancialTransactionInterface;
 use JMS\Payment\CoreBundle\Model\PaymentInstructionInterface;
 use JMS\Payment\CoreBundle\Plugin\ErrorBuilder;
-use Ruudk\Payment\MultisafepayBundle\Form\IdealType;
 
 class IdealPlugin extends DefaultPlugin
 {
     public function processes($name)
     {
-        return $name === IdealType::class;
+        return 'multisafepay_ideal' === $name;
     }
 
     public function checkPaymentInstruction(PaymentInstructionInterface $instruction)
@@ -24,7 +23,7 @@ class IdealPlugin extends DefaultPlugin
         $data = $instruction->getExtendedData();
 
         if(!$data->get('bank')) {
-            $errorBuilder->addDataError('data_Ruudk_Payment_MultisafepayBundle_Form_IdealType.bank', 'form.error.bank_required');
+            $errorBuilder->addDataError('data_multisafepay_ideal.bank', 'form.error.bank_required');
         }
 
         if ($errorBuilder->hasErrors()) {
