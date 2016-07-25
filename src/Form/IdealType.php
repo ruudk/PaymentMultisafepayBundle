@@ -33,16 +33,16 @@ class IdealType extends DefaultType
         $banks = array();
         $defaultBank = null;
 
-        foreach($this->issuers AS $issuer) {
-            if('ideal' !== $issuer->getPaymentMethod()) {
+        foreach ($this->issuers AS $issuer) {
+            if ('ideal' !== $issuer->getPaymentMethod()) {
                 continue;
             }
 
-            $banks[$issuer->getId()] = $issuer->getName();
+            $banks[$issuer->getName()] = $issuer->getId();
             $defaultBank = $issuer->getId();
         }
 
-        if(1 !== count($banks)) {
+        if (1 !== count($banks)) {
             $defaultBank = null;
         }
 
@@ -51,10 +51,11 @@ class IdealType extends DefaultType
         }
 
         $builder->add('bank', 'choice', array(
-            'label'       => 'ruudk_payment_multisafepay.ideal.bank.label',
-            'data'        => $defaultBank,
-            'empty_value' => 'ruudk_payment_multisafepay.ideal.bank.empty_value',
-            'choices'     => $banks
+            'label'             => 'ruudk_payment_multisafepay.ideal.bank.label',
+            'data'              => $defaultBank,
+            'empty_value'       => 'ruudk_payment_multisafepay.ideal.bank.empty_value',
+            'choices'           => $banks,
+            'choices_as_values' => true,
         ));
     }
 
