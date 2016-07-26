@@ -3,6 +3,7 @@
 namespace Ruudk\Payment\MultisafepayBundle\Form;
 
 use Omnipay\Common\Issuer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,8 +22,6 @@ class IdealType extends DefaultType
     {
         parent::__construct($name);
 
-        $this->name = $name;
-
         foreach ($issuers as $issuerId => $issuerName) {
             $this->issuers[] = new Issuer($issuerId, $issuerName, 'ideal');
         }
@@ -33,7 +32,7 @@ class IdealType extends DefaultType
         $banks = array();
         $defaultBank = null;
 
-        foreach ($this->issuers AS $issuer) {
+        foreach ($this->issuers as $issuer) {
             if ('ideal' !== $issuer->getPaymentMethod()) {
                 continue;
             }
@@ -50,10 +49,10 @@ class IdealType extends DefaultType
             $defaultBank = $options['bank'];
         }
 
-        $builder->add('bank', 'choice', array(
+        $builder->add('bank', ChoiceType::class, array(
             'label'             => 'ruudk_payment_multisafepay.ideal.bank.label',
             'data'              => $defaultBank,
-            'empty_value'       => 'ruudk_payment_multisafepay.ideal.bank.empty_value',
+            'placeholder'       => 'ruudk_payment_multisafepay.ideal.bank.empty_value',
             'choices'           => $banks,
             'choices_as_values' => true,
         ));
@@ -67,8 +66,8 @@ class IdealType extends DefaultType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'bank' => ''
-        ));
+                                   'bank' => ''
+                               ));
 
         $resolver->setAllowedTypes('bank', 'string');
     }
