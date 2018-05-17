@@ -54,7 +54,6 @@ class IdealType extends DefaultType
             'data'              => $defaultBank,
             'placeholder'       => 'ruudk_payment_multisafepay.ideal.bank.empty_value',
             'choices'           => $banks,
-            'choices_as_values' => true,
         ));
     }
 
